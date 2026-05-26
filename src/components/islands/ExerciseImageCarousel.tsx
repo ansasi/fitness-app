@@ -26,7 +26,7 @@ export default function ExerciseImageCarousel({ images, name, locale }: Props) {
 
   if (images.length === 0) {
     return (
-      <div className="grid aspect-[3/2] w-full place-items-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-2)] font-display text-7xl text-[var(--color-border-strong)]">
+      <div className="grid aspect-[4/3] w-full place-items-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-2)] font-display text-7xl text-[var(--color-border-strong)]">
         {name[0]}
       </div>
     );
@@ -36,13 +36,13 @@ export default function ExerciseImageCarousel({ images, name, locale }: Props) {
 
   return (
     <div className="group relative overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-2)]">
-      <div className="relative aspect-[3/2] w-full">
+      <div className="relative aspect-[4/3] min-h-72 w-full md:min-h-96">
         {images.map((src, i) => (
           <img
             key={src}
             src={imageUrl(src)}
             alt={t(locale, "modal.imageFrameAlt", { name, number: i + 1 })}
-            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+            className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-500 ${
               i === frame ? "opacity-100" : "opacity-0"
             }`}
           />
