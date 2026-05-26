@@ -8,11 +8,12 @@ import {
 } from "../lib/facets";
 import FilterBar from "./FilterBar";
 import ExerciseCard from "./ExerciseCard";
-import ExerciseModal from "./ExerciseModal";
 
 type Props = {
   exercises: Exercise[];
 };
+
+const PAGE_SIZE = 24;
 
 const useDebounced = <T,>(value: T, ms: number) => {
   const [debounced, setDebounced] = useState(value);
@@ -29,7 +30,7 @@ export default function ExerciseBrowser({ exercises }: Props) {
   const [equipment, setEquipment] = useState<string | null>(null);
   const [level, setLevel] = useState<string | null>(null);
   const [category, setCategory] = useState<string | null>(null);
-  const [selected, setSelected] = useState<Exercise | null>(null);
+  const [visible, setVisible] = useState(PAGE_SIZE);
 
   const debouncedQuery = useDebounced(query, 150);
 
@@ -52,6 +53,10 @@ export default function ExerciseBrowser({ exercises }: Props) {
     });
   }, [exercises, debouncedQuery, muscle, equipment, level, category]);
 
+  useEffect(() => {
+    setVisible(PAGE_SIZE);
+  }, [debouncedQuery, muscle, equipment, level, category]);
+
   const reset = () => {
     setQuery("");
     setMuscle(null);
@@ -59,6 +64,9 @@ export default function ExerciseBrowser({ exercises }: Props) {
     setLevel(null);
     setCategory(null);
   };
+
+  const shown = filtered.slice(0, visible);
+  const hasMore = filtered.length > visible;
 
   return (
     <>
@@ -86,14 +94,32 @@ export default function ExerciseBrowser({ exercises }: Props) {
           <p className="mt-2 text-sm text-[var(--color-muted)]">Try clearing one to widen the search.</p>
         </div>
       ) : (
-        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filtered.map((e) => (
-            <ExerciseCard key={e.id} exercise={e} onSelect={setSelected} />
-          ))}
-        </div>
-      )}
+        <>
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {shown.map((e) => (
+              <ExerciseCard key={e.id} exercise={e} />
+            ))}
+          </div>
 
-      <ExerciseModal exercise={selected} onClose={() => setSelected(null)} />
+          {hasMore && (
+            <div className="mt-10 flex flex-col items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setVisible((v) => v + PAGE_SIZE)}
+                className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-6 py-3 text-sm font-semibold text-[var(--color-text)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+              >
+                Load more exercises
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M7 2v10M2 7l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+              <span className="text-xs tracking-wide text-[var(--color-muted)]">
+                Showing {shown.length} of {filtered.length}
+              </span>
+            </div>
+          )}
+        </>
+      )}
     </>
   );
 }
