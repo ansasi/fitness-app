@@ -51,7 +51,7 @@ export default function ExerciseModal({ exercise, onClose }: Props) {
     >
       {exercise && (
         <div
-          className="relative mx-auto h-dvh w-full max-w-5xl overflow-y-auto bg-[var(--color-surface)] md:my-10 md:h-auto md:max-h-[90vh] md:rounded-3xl md:border md:border-[var(--color-border)]"
+          className="no-scrollbar relative mx-auto h-dvh w-full max-w-5xl overflow-y-auto bg-[var(--color-surface)] md:my-10 md:h-auto md:max-h-[90vh] md:rounded-3xl md:border md:border-[var(--color-border)]"
           onClick={(e) => e.stopPropagation()}
         >
           <button

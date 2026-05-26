@@ -22,7 +22,7 @@ export default function ExerciseImageCarousel({ images, name }: Props) {
 
   if (images.length === 0) {
     return (
-      <div className="grid aspect-square w-full place-items-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-2)] font-display text-7xl text-[var(--color-border-strong)]">
+      <div className="grid aspect-[3/2] w-full place-items-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-2)] font-display text-7xl text-[var(--color-border-strong)]">
         {name[0]}
       </div>
     );
@@ -34,7 +34,7 @@ export default function ExerciseImageCarousel({ images, name }: Props) {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="relative aspect-square w-full md:aspect-[4/3]">
+      <div className="relative aspect-[3/2] w-full">
         {images.map((src, i) => (
           <img
             key={src}
