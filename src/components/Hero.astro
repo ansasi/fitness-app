@@ -1,0 +1,65 @@
+---
+interface Props {
+  exerciseCount: number;
+}
+const { exerciseCount } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden">
+  <div class="absolute inset-0 hero-grid"></div>
+  <div class="absolute inset-x-0 top-0 h-[80vh] hero-glow"></div>
+
+  <div class="relative mx-auto flex min-h-[92vh] max-w-7xl flex-col justify-between px-6 pt-10 pb-12 md:pt-14">
+    <header class="flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <span class="block h-3 w-3 rounded-sm bg-[var(--color-accent)]"></span>
+        <span class="font-display text-xl tracking-wider">FORGE</span>
+      </a>
+      <span class="hidden text-xs tracking-[0.25em] text-[var(--color-muted)] md:inline">
+        v0.1 — PUBLIC DOMAIN LIBRARY
+      </span>
+    </header>
+
+    <div class="flex flex-1 flex-col justify-center py-16">
+      <span class="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)]/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--color-accent)]">
+        <span class="block h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]"></span>
+        {exerciseCount} exercises · open source
+      </span>
+
+      <h1 class="font-display text-[15vw] leading-[0.88] tracking-tight md:text-[8.5rem]">
+        MOVE WITH<br />
+        <span class="text-[var(--color-accent)]">PURPOSE.</span>
+      </h1>
+
+      <p class="mt-6 max-w-xl text-base text-[var(--color-muted)] md:text-lg">
+        A focused exercise library. Filter by muscle, equipment, level, and category.
+        Every movement comes with step-by-step instructions and reference imagery.
+      </p>
+
+      <div class="mt-10 flex flex-wrap items-center gap-3">
+        <a
+          href="#browse"
+          class="group inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[var(--color-bg)] transition hover:bg-[var(--color-accent-2)]"
+        >
+          Browse exercises
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="transition group-hover:translate-x-0.5">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a
+          href="#browse"
+          class="inline-flex items-center gap-2 rounded-full border border-[var(--color-border-strong)] px-6 py-3 text-sm font-semibold text-[var(--color-text)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+        >
+          Filter the catalog
+        </a>
+      </div>
+    </div>
+
+    <a href="#browse" class="scroll-cue mx-auto flex flex-col items-center gap-1 text-[10px] tracking-[0.3em] text-[var(--color-muted)]">
+      SCROLL
+      <svg width="12" height="14" viewBox="0 0 12 14" fill="none">
+        <path d="M6 1v12M1 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </a>
+  </div>
+</section>
