@@ -19,9 +19,6 @@
 
 ## Exercise Dataset
 
-- Source exercise info and images from `https://github.com/yuhonas/free-exercise-db`.
-- Prefer the combined JSON at `https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json` unless there is a reason to vendor individual files.
-- Image entries are relative paths like `Air_Bike/0.jpg`; hosted URLs require prefixing `https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/`.
 - The dataset is Unlicense/public domain, but keep attribution in project docs.
 - `force`, `mechanic`, and `equipment` can be `null`; filters and card rendering must not assume strings.
 - Muscles are split into `primaryMuscles` and `secondaryMuscles`; muscle filters should consider both if the UI says it filters by muscle.

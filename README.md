@@ -19,17 +19,10 @@ with the full instructions and an auto-cycling image carousel.
 - Show exercise cards with the exercise name, muscle groups,
   equipment/level/category, instructions, and exercise images.
 
-## Exercise Data (vendored)
-
-The dataset and images from
-[`yuhonas/free-exercise-db`](https://github.com/yuhonas/free-exercise-db)
-(Unlicense / public domain) are vendored into this repository so the app is
-fully self-contained:
+## Exercise Data
 
 - `src/data/exercises.json` — combined dataset (873 exercises)
 - `public/exercises/` — image tree, served at `/exercises/<Slug>/<n>.jpg`
-- `vendor/free-exercise-db/` — source `LICENSE.md`, `README.md`, and
-  `schema.json` for attribution and provenance
 
 Each exercise has `id`, `name`, `force`, `level`, `mechanic`, `equipment`,
 `primaryMuscles`, `secondaryMuscles`, `instructions`, `category`, and
