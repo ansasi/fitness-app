@@ -8,6 +8,7 @@ import {
 } from "../lib/facets";
 import FilterBar from "./FilterBar";
 import ExerciseCard from "./ExerciseCard";
+import ExerciseModal from "./ExerciseModal";
 
 type Props = {
   exercises: Exercise[];
@@ -31,6 +32,7 @@ export default function ExerciseBrowser({ exercises }: Props) {
   const [level, setLevel] = useState<string | null>(null);
   const [category, setCategory] = useState<string | null>(null);
   const [visible, setVisible] = useState(PAGE_SIZE);
+  const [selected, setSelected] = useState<Exercise | null>(null);
 
   const debouncedQuery = useDebounced(query, 150);
 
@@ -97,7 +99,7 @@ export default function ExerciseBrowser({ exercises }: Props) {
         <>
           <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {shown.map((e) => (
-              <ExerciseCard key={e.id} exercise={e} />
+              <ExerciseCard key={e.id} exercise={e} onSelect={setSelected} />
             ))}
           </div>
 
@@ -120,6 +122,8 @@ export default function ExerciseBrowser({ exercises }: Props) {
           )}
         </>
       )}
+
+      <ExerciseModal exercise={selected} onClose={() => setSelected(null)} />
     </>
   );
 }

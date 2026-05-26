@@ -4,16 +4,18 @@ import { titleCase } from "../lib/facets";
 
 type Props = {
   exercise: Exercise;
+  onSelect: (e: Exercise) => void;
 };
 
-export default function ExerciseCard({ exercise }: Props) {
+export default function ExerciseCard({ exercise, onSelect }: Props) {
   const first = exercise.images[0];
   const primary = exercise.primaryMuscles[0];
 
   return (
-    <a
-      href={`/exercise/${exercise.id}`}
-      className="group flex overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] transition hover:border-[var(--color-accent)]/60 hover:shadow-[0_0_0_1px_rgba(195,255,54,0.18)] focus:outline-none focus-visible:border-[var(--color-accent)] focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/40 sm:aspect-[4/5] sm:flex-col"
+    <button
+      type="button"
+      onClick={() => onSelect(exercise)}
+      className="group flex overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] text-left transition hover:border-[var(--color-accent)]/60 hover:shadow-[0_0_0_1px_rgba(195,255,54,0.18)] focus:outline-none focus-visible:border-[var(--color-accent)] focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/40 sm:aspect-[4/5] sm:flex-col"
     >
       <div className="relative h-32 w-32 shrink-0 overflow-hidden bg-[var(--color-surface-2)] sm:h-auto sm:w-full sm:flex-1">
         {first ? (
@@ -61,6 +63,6 @@ export default function ExerciseCard({ exercise }: Props) {
           )}
         </div>
       </div>
-    </a>
+    </button>
   );
 }
