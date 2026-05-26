@@ -6,39 +6,54 @@
 
   <div class="relative mx-auto flex max-w-7xl flex-col px-6 pt-10 pb-10 md:min-h-[72vh] md:pt-14 md:pb-12">
     <header class="flex items-center">
-      <a href="/" class="flex items-center gap-2">
-        <span class="block h-3 w-3 rounded-sm bg-[var(--color-accent)]"></span>
-        <span class="font-display text-xl tracking-wider">FORGE</span>
+      <a href="/" class="flex items-center gap-2.5 text-[var(--color-accent)]" aria-label="FORGE home">
+        <svg viewBox="0 0 64 64" class="h-7 w-7" fill="none" aria-hidden="true">
+          <path d="M12 6 H56 V20 H26 V28 H48 V40 H26 V58 L12 50 Z" fill="currentColor" />
+        </svg>
+        <span class="font-display text-xl tracking-wider text-[var(--color-text)]">FORGE</span>
       </a>
     </header>
 
-    <div class="flex flex-col py-10 md:flex-1 md:justify-center md:py-12">
-      <h1 class="font-display text-[15vw] leading-[0.88] tracking-tight md:text-[8.5rem]">
-        MOVE WITH<br />
-        <span class="text-[var(--color-accent)]">PURPOSE.</span>
-      </h1>
+    <div class="grid gap-10 py-10 md:flex-1 md:grid-cols-12 md:items-center md:gap-8 md:py-12">
+      <div class="md:col-span-7">
+        <h1 class="font-display text-[15vw] leading-[0.88] tracking-tight md:text-[7.5rem] lg:text-[8.5rem]">
+          MOVE WITH<br />
+          <span class="text-[var(--color-accent)]">PURPOSE.</span>
+        </h1>
 
-      <p class="mt-6 max-w-xl text-base text-[var(--color-muted)] md:text-lg">
-        A focused exercise library. Filter by muscle, equipment, level, and category.
-        Every movement comes with step-by-step instructions and reference imagery.
-      </p>
+        <p class="mt-6 max-w-xl text-base text-[var(--color-muted)] md:text-lg">
+          A focused exercise library. Filter by muscle, equipment, level, and category.
+          Every movement comes with step-by-step instructions and reference imagery.
+        </p>
 
-      <div class="mt-10 flex flex-wrap items-center gap-3">
-        <a
-          href="#browse"
-          class="group inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[var(--color-bg)] transition hover:bg-[var(--color-accent-2)]"
-        >
-          Browse exercises
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="transition group-hover:translate-x-0.5">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </a>
-        <a
-          href="#browse"
-          class="inline-flex items-center gap-2 rounded-full border border-[var(--color-border-strong)] px-6 py-3 text-sm font-semibold text-[var(--color-text)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-        >
-          Filter the catalog
-        </a>
+        <div class="mt-10 flex flex-wrap items-center gap-3">
+          <a
+            href="#browse"
+            class="group inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[var(--color-bg)] transition hover:bg-[var(--color-accent-2)]"
+          >
+            Browse exercises
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="transition group-hover:translate-x-0.5">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+          <a
+            href="#browse"
+            class="inline-flex items-center gap-2 rounded-full border border-[var(--color-border-strong)] px-6 py-3 text-sm font-semibold text-[var(--color-text)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+          >
+            Filter the catalog
+          </a>
+        </div>
+      </div>
+
+      <div class="hidden md:col-span-5 md:flex md:items-center md:justify-center">
+        <svg viewBox="0 0 320 320" class="h-auto w-full max-w-md" aria-hidden="true">
+          <g fill="none" stroke="#c3ff36">
+            <rect x="10" y="10" width="300" height="300" stroke-opacity="0.15" stroke-width="2" />
+            <path d="M60 50 H260 V90 H110 V130 H220 V170 H110 V270 L60 230 Z" fill="#c3ff36" fill-opacity="0.92" stroke="none" />
+            <path d="M14 295 L34 285 M306 295 L286 285" stroke-opacity="0.6" stroke-width="2" />
+            <text x="306" y="42" font-family="Inter Variable, sans-serif" font-size="10" fill="#8b9099" text-anchor="end" letter-spacing="2">EST. 2026</text>
+          </g>
+        </svg>
       </div>
     </div>
   </div>
