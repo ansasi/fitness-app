@@ -14,6 +14,7 @@ export default function ExerciseImageCarousel({ images, name }: Props) {
 
   useEffect(() => {
     if (!playing || images.length < 2) return;
+    setFrame((f) => (f + 1) % images.length);
     const id = window.setInterval(() => {
       setFrame((f) => (f + 1) % images.length);
     }, INTERVAL_MS);
@@ -31,7 +32,7 @@ export default function ExerciseImageCarousel({ images, name }: Props) {
   const hasMultiple = images.length > 1;
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-2)]">
+    <div className="group relative overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-2)]">
       <div className="relative aspect-[3/2] w-full">
         {images.map((src, i) => (
           <img
@@ -49,17 +50,22 @@ export default function ExerciseImageCarousel({ images, name }: Props) {
         <>
           <button
             type="button"
-            onClick={() => setPlaying((p) => !p)}
+            onClick={(e) => {
+              setPlaying((p) => !p);
+              e.currentTarget.blur();
+            }}
             aria-label={playing ? "Pause animation" : "Play animation"}
-            className="absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-full border border-[var(--color-border-strong)] bg-[var(--color-bg)]/70 text-[var(--color-text)] backdrop-blur transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+            className={`absolute left-1/2 top-1/2 grid h-20 w-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-[var(--color-border-strong)] bg-[var(--color-bg)]/70 text-[var(--color-text)] backdrop-blur transition duration-200 hover:scale-105 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] focus-visible:opacity-100 md:h-24 md:w-24 ${
+              playing ? "opacity-0 group-hover:opacity-100" : "opacity-100"
+            }`}
           >
             {playing ? (
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+              <svg width="30" height="30" viewBox="0 0 14 14" fill="none" aria-hidden>
                 <rect x="3" y="2" width="3" height="10" rx="0.5" fill="currentColor" />
                 <rect x="8" y="2" width="3" height="10" rx="0.5" fill="currentColor" />
               </svg>
             ) : (
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+              <svg width="30" height="30" viewBox="0 0 14 14" fill="none" aria-hidden>
                 <path d="M3 2l9 5-9 5V2z" fill="currentColor" />
               </svg>
             )}
