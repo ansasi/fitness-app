@@ -12,7 +12,7 @@ const exercises: Exercise[] = entries.map((e) => ({ id: e.id, ...e.data }));
 <Layout>
   <Hero />
 
-  <main id="browse" class="mx-auto max-w-7xl px-6 pb-24 pt-4">
+  <main id="browse" class="mx-auto max-w-7xl px-6 pb-16 pt-2">
     <ExerciseBrowser client:load exercises={exercises} />
   </main>
 

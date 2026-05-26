@@ -42,7 +42,7 @@ export default function ExerciseCard({ exercise }: Props) {
         </div>
       </div>
 
-      <div className="relative flex flex-1 flex-col justify-center gap-1.5 p-4 sm:justify-end">
+      <div className="relative flex flex-1 flex-col justify-center gap-1.5 p-4 sm:flex-none sm:justify-end">
         {primary && (
           <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--color-accent)]">
             {titleCase(primary)}
