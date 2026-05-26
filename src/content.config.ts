@@ -3,7 +3,7 @@ import { file } from "astro/loaders";
 import { z } from "astro/zod";
 
 const exercises = defineCollection({
-  loader: file("src/data/exercises.json"),
+  loader: file("src/data/en/exercises.json"),
   schema: z.object({
     name: z.string(),
     force: z.string().nullable(),

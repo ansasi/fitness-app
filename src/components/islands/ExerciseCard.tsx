@@ -1,13 +1,15 @@
-import type { Exercise } from "../lib/types";
-import { imageUrl } from "../lib/images";
-import { titleCase } from "../lib/facets";
+import type { Exercise } from "../../lib/types";
+import { imageUrl } from "../../lib/images";
+import type { Locale } from "../../i18n/utils";
+import { formatFacet } from "../../i18n/utils";
 
 type Props = {
   exercise: Exercise;
   onSelect: (e: Exercise) => void;
+  locale: Locale;
 };
 
-export default function ExerciseCard({ exercise, onSelect }: Props) {
+export default function ExerciseCard({ exercise, onSelect, locale }: Props) {
   const first = exercise.images[0];
   const primary = exercise.primaryMuscles[0];
 
@@ -34,11 +36,11 @@ export default function ExerciseCard({ exercise, onSelect }: Props) {
 
         <div className="absolute left-2 top-2 hidden flex-wrap gap-1.5 sm:left-3 sm:top-3 sm:flex">
           <span className="rounded-full bg-[var(--color-bg)]/80 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-[var(--color-muted)] backdrop-blur">
-            {titleCase(exercise.level)}
+            {formatFacet(locale, "level", exercise.level)}
           </span>
           {exercise.equipment && (
             <span className="rounded-full bg-[var(--color-bg)]/80 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-[var(--color-muted)] backdrop-blur">
-              {titleCase(exercise.equipment)}
+              {formatFacet(locale, "equipment", exercise.equipment)}
             </span>
           )}
         </div>
@@ -47,18 +49,18 @@ export default function ExerciseCard({ exercise, onSelect }: Props) {
       <div className="relative flex flex-1 flex-col justify-center gap-1.5 p-4 sm:flex-none sm:justify-end">
         {primary && (
           <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--color-accent)]">
-            {titleCase(primary)}
+            {formatFacet(locale, "muscle", primary)}
           </span>
         )}
         <h3 className="font-display text-xl leading-tight tracking-tight text-[var(--color-text)] sm:text-2xl">
           {exercise.name}
         </h3>
         <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-[var(--color-muted)] sm:hidden">
-          <span>{titleCase(exercise.level)}</span>
+          <span>{formatFacet(locale, "level", exercise.level)}</span>
           {exercise.equipment && (
             <>
               <span aria-hidden>·</span>
-              <span>{titleCase(exercise.equipment)}</span>
+              <span>{formatFacet(locale, "equipment", exercise.equipment)}</span>
             </>
           )}
         </div>

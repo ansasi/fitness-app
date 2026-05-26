@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
-import { imageUrl } from "../lib/images";
+import { imageUrl } from "../../lib/images";
+import type { Locale } from "../../i18n/utils";
+import { t } from "../../i18n/utils";
 
 type Props = {
   images: string[];
   name: string;
+  locale: Locale;
 };
 
 const INTERVAL_MS = 2000;
 
-export default function ExerciseImageCarousel({ images, name }: Props) {
+export default function ExerciseImageCarousel({ images, name, locale }: Props) {
   const [frame, setFrame] = useState(0);
   const [playing, setPlaying] = useState(false);
 
@@ -38,7 +41,7 @@ export default function ExerciseImageCarousel({ images, name }: Props) {
           <img
             key={src}
             src={imageUrl(src)}
-            alt={`${name} — frame ${i + 1}`}
+            alt={t(locale, "modal.imageFrameAlt", { name, number: i + 1 })}
             className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
               i === frame ? "opacity-100" : "opacity-0"
             }`}
@@ -54,7 +57,7 @@ export default function ExerciseImageCarousel({ images, name }: Props) {
               setPlaying((p) => !p);
               e.currentTarget.blur();
             }}
-            aria-label={playing ? "Pause animation" : "Play animation"}
+            aria-label={playing ? t(locale, "modal.pauseAnimation") : t(locale, "modal.playAnimation")}
             className={`absolute left-1/2 top-1/2 grid h-20 w-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-[var(--color-border-strong)] bg-[var(--color-bg)]/70 text-[var(--color-text)] backdrop-blur transition duration-200 hover:scale-105 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] focus-visible:opacity-100 md:h-24 md:w-24 ${
               playing ? "opacity-0 group-hover:opacity-100" : "opacity-100"
             }`}
@@ -76,7 +79,7 @@ export default function ExerciseImageCarousel({ images, name }: Props) {
               <button
                 key={i}
                 type="button"
-                aria-label={`Frame ${i + 1}`}
+                aria-label={t(locale, "modal.frame", { number: i + 1 })}
                 onClick={() => {
                   setPlaying(false);
                   setFrame(i);

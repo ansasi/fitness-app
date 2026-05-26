@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "./Hero.astro";
+import ExerciseBrowser from "./islands/ExerciseBrowser";
+import englishExercises from "../data/en/exercises.json";
+import spanishExercises from "../data/es/exercises.json";
+import { defaultLang, resolveLocale, t } from "../i18n/utils";
+import type { Exercise } from "../lib/types";
+
+const locale = resolveLocale(Astro.currentLocale, defaultLang);
+const exercisesByLocale = {
+  en: englishExercises,
+  es: spanishExercises,
+} satisfies Record<typeof locale, Exercise[]>;
+const exercises = exercisesByLocale[locale];
+---
+
+<Layout title={t(locale, "meta.title")} description={t(locale, "meta.description")} locale={locale}>
+  <Hero locale={locale} />
+
+  <main id="browse" class="mx-auto max-w-7xl px-6 pb-16 pt-2">
+    <ExerciseBrowser client:load exercises={exercises} locale={locale} />
+  </main>
+
+  <footer class="border-t border-[var(--color-border)] px-6 py-10 text-center text-xs tracking-wide text-[var(--color-muted)]">
+    {t(locale, "footer.developedBy")} <a href="https://datia.ch" class="underline">Datia CH</a>.
+    {" "}{t(locale, "footer.copyright")}
+  </footer>
+</Layout>

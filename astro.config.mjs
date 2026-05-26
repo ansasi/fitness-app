@@ -12,6 +12,14 @@ export default defineConfig({
   site: 'https://forge.datia.ch',
   integrations: [react(), sitemap()],
 
+  i18n: {
+    locales: ['en', 'es'],
+    defaultLocale: 'en',
+    routing: {
+      prefixDefaultLocale: false
+    }
+  },
+
   vite: {
     plugins: [tailwindcss()]
   },

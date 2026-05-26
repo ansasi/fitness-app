@@ -1,17 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
-import type { Exercise } from "../lib/types";
+import type { Exercise } from "../../lib/types";
+import type { Locale } from "../../i18n/utils";
+import { t } from "../../i18n/utils";
 import {
   uniqueCategories,
   uniqueEquipment,
   uniqueLevels,
   uniqueMuscles,
-} from "../lib/facets";
+} from "../../lib/facets";
 import FilterBar from "./FilterBar";
 import ExerciseCard from "./ExerciseCard";
 import ExerciseModal from "./ExerciseModal";
 
 type Props = {
   exercises: Exercise[];
+  locale: Locale;
 };
 
 const PAGE_SIZE = 24;
@@ -25,7 +28,7 @@ const useDebounced = <T,>(value: T, ms: number) => {
   return debounced;
 };
 
-export default function ExerciseBrowser({ exercises }: Props) {
+export default function ExerciseBrowser({ exercises, locale }: Props) {
   const [query, setQuery] = useState("");
   const [muscle, setMuscle] = useState<string | null>(null);
   const [equipment, setEquipment] = useState<string | null>(null);
@@ -88,18 +91,19 @@ export default function ExerciseBrowser({ exercises }: Props) {
         levels={levels}
         categories={categories}
         onReset={reset}
+        locale={locale}
       />
 
       {filtered.length === 0 ? (
         <div className="mt-16 rounded-2xl border border-dashed border-[var(--color-border-strong)] py-16 text-center">
-          <p className="font-display text-2xl tracking-tight">No exercises match those filters.</p>
-          <p className="mt-2 text-sm text-[var(--color-muted)]">Try clearing one to widen the search.</p>
+          <p className="font-display text-2xl tracking-tight">{t(locale, "browser.noResultsTitle")}</p>
+          <p className="mt-2 text-sm text-[var(--color-muted)]">{t(locale, "browser.noResultsBody")}</p>
         </div>
       ) : (
         <>
           <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {shown.map((e) => (
-              <ExerciseCard key={e.id} exercise={e} onSelect={setSelected} />
+              <ExerciseCard key={e.id} exercise={e} onSelect={setSelected} locale={locale} />
             ))}
           </div>
 
@@ -110,20 +114,20 @@ export default function ExerciseBrowser({ exercises }: Props) {
                 onClick={() => setVisible((v) => v + PAGE_SIZE)}
                 className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-6 py-3 text-sm font-semibold text-[var(--color-text)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
               >
-                Load more exercises
+                {t(locale, "browser.loadMore")}
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <path d="M7 2v10M2 7l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
               <span className="text-xs tracking-wide text-[var(--color-muted)]">
-                Showing {shown.length} of {filtered.length}
+                {t(locale, "browser.showing", { shown: shown.length, total: filtered.length })}
               </span>
             </div>
           )}
         </>
       )}
 
-      <ExerciseModal exercise={selected} onClose={() => setSelected(null)} />
+      <ExerciseModal exercise={selected} onClose={() => setSelected(null)} locale={locale} />
     </>
   );
 }

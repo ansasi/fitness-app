@@ -1,4 +1,5 @@
-import { titleCase } from "../lib/facets";
+import type { FacetGroup, Locale } from "../../i18n/utils";
+import { formatFacet, t } from "../../i18n/utils";
 
 type Props = {
   query: string;
@@ -16,6 +17,7 @@ type Props = {
   levels: string[];
   categories: string[];
   onReset: () => void;
+  locale: Locale;
 };
 
 const orNull = (v: string) => (v === "" ? null : v);
@@ -46,36 +48,48 @@ export default function FilterBar(props: Props) {
             type="search"
             value={props.query}
             onChange={(e) => props.onQueryChange(e.target.value)}
-            placeholder="Search exercises…"
-            aria-label="Search exercises by name"
+            placeholder={t(props.locale, "filters.searchPlaceholder")}
+            aria-label={t(props.locale, "filters.searchAria")}
             className="w-full rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] py-3 pl-10 pr-4 text-sm text-[var(--color-text)] placeholder-[var(--color-muted)] outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)]"
           />
         </div>
 
         <div className="grid grid-cols-2 gap-2 lg:flex lg:flex-wrap">
           <Select
-            label="Muscle"
+            label={t(props.locale, "filters.muscle.label")}
+            allLabel={t(props.locale, "filters.muscle.all")}
             value={props.muscle ?? ""}
             onChange={(v) => props.onMuscleChange(orNull(v))}
             options={props.muscles}
+            facetGroup="muscle"
+            locale={props.locale}
           />
           <Select
-            label="Equipment"
+            label={t(props.locale, "filters.equipment.label")}
+            allLabel={t(props.locale, "filters.equipment.all")}
             value={props.equipment ?? ""}
             onChange={(v) => props.onEquipmentChange(orNull(v))}
             options={props.equipmentOptions}
+            facetGroup="equipment"
+            locale={props.locale}
           />
           <Select
-            label="Level"
+            label={t(props.locale, "filters.level.label")}
+            allLabel={t(props.locale, "filters.level.all")}
             value={props.level ?? ""}
             onChange={(v) => props.onLevelChange(orNull(v))}
             options={props.levels}
+            facetGroup="level"
+            locale={props.locale}
           />
           <Select
-            label="Category"
+            label={t(props.locale, "filters.category.label")}
+            allLabel={t(props.locale, "filters.category.all")}
             value={props.category ?? ""}
             onChange={(v) => props.onCategoryChange(orNull(v))}
             options={props.categories}
+            facetGroup="category"
+            locale={props.locale}
           />
         </div>
 
@@ -85,7 +99,7 @@ export default function FilterBar(props: Props) {
             onClick={props.onReset}
             className="rounded-full border border-[var(--color-border-strong)] px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
           >
-            Reset
+            {t(props.locale, "filters.reset")}
           </button>
         )}
       </div>
@@ -96,14 +110,20 @@ export default function FilterBar(props: Props) {
 
 function Select({
   label,
+  allLabel,
   value,
   onChange,
   options,
+  facetGroup,
+  locale,
 }: {
   label: string;
+  allLabel: string;
   value: string;
   onChange: (v: string) => void;
   options: string[];
+  facetGroup: FacetGroup;
+  locale: Locale;
 }) {
   return (
     <select
@@ -112,10 +132,10 @@ function Select({
       aria-label={label}
       className="select-dark rounded-full border border-[var(--color-border)] py-3 pl-4 text-sm text-[var(--color-text)]"
     >
-      <option value="">All {label.toLowerCase()}</option>
+      <option value="">{allLabel}</option>
       {options.map((o) => (
         <option key={o} value={o}>
-          {titleCase(o)}
+          {formatFacet(locale, facetGroup, o)}
         </option>
       ))}
     </select>
