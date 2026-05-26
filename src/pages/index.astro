@@ -1,0 +1,23 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import ExerciseBrowser from "../components/ExerciseBrowser";
+import type { Exercise } from "../lib/types";
+
+const entries = await getCollection("exercises");
+const exercises: Exercise[] = entries.map((e) => ({ id: e.id, ...e.data }));
+---
+
+<Layout>
+  <Hero />
+
+  <main id="browse" class="mx-auto max-w-7xl px-6 pb-16 pt-2">
+    <ExerciseBrowser client:load exercises={exercises} />
+  </main>
+
+  <footer class="border-t border-[var(--color-border)] px-6 py-10 text-center text-xs tracking-wide text-[var(--color-muted)]">
+    Develop by <a href="https://datia.ch" class="underline">Datia CH</a>.
+    Copyright &copy; 2026. All rights reserved.
+  </footer>
+</Layout>
