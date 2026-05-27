@@ -1,5 +1,14 @@
 ---
-import HomePage from "../components/HomePage.astro";
----
+// Language-neutral root: redirects the visitor to their preferred locale at
+// request time. `prerender = false` keeps this page in the Worker bundle so
+// `Astro.preferredLocale` is evaluated per request.
+export const prerender = false;
 
-<HomePage />
+import { resolveLocale } from "../i18n/utils";
+import { localeRoot } from "../lib/site/paths";
+
+const redirectTo = localeRoot(resolveLocale(Astro.preferredLocale));
+if (redirectTo) {
+  return Astro.redirect(redirectTo, 302);
+}
+---

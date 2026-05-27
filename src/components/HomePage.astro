@@ -4,14 +4,18 @@ import Hero from "./Hero.astro";
 import ExerciseBrowser from "./islands/ExerciseBrowser";
 import englishExercises from "../data/en/exercises.json";
 import spanishExercises from "../data/es/exercises.json";
-import { defaultLang, resolveLocale, t } from "../i18n/utils";
+import { defaultLang, resolveLocale, t, type Locale } from "../i18n/utils";
 import type { Exercise } from "../lib/types";
 
-const locale = resolveLocale(Astro.currentLocale, defaultLang);
+type Props = {
+  locale?: Locale;
+};
+
+const locale = resolveLocale(Astro.props.locale ?? Astro.currentLocale, defaultLang);
 const exercisesByLocale = {
   en: englishExercises,
   es: spanishExercises,
-} satisfies Record<typeof locale, Exercise[]>;
+} satisfies Record<Locale, Exercise[]>;
 const exercises = exercisesByLocale[locale];
 ---
 
